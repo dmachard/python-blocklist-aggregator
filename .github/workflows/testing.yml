@@ -1,0 +1,20 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unittests:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.7"
+    - name: Run Python tests 
+      run: |
+        sudo python3 -m pip install pyyaml
+        sudo python3 -m unittest tests.test_fetch -v
