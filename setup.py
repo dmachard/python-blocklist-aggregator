@@ -12,14 +12,14 @@ if PKG_VERSION.startswith("v"):
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
     
-KEYWORDS = ('blocklist aggregator')
+KEYWORDS = ('blocklist aggregator domains dns blacklist whitelist')
 
 setuptools.setup(
     name="blocklist_aggregator",
     version=PKG_VERSION,
     author="Denis MACHARD",
     author_email="d.machard@gmail.com",
-    description="Python Dnstap receiver",
+    description="Domains blocklist aggregator",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url="https://github.com/dmachard/blocklist-aggregator",
