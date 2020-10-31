@@ -7,7 +7,7 @@
 
 This python module does the aggregation of several ads/tracking/malware lists, and merges them into a unified list with duplicates removed.
 
-See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for the implementation.
+See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for an implementation example.
 
 ## Table of contents
 * [Installation](#installation)
