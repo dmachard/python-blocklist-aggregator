@@ -91,7 +91,7 @@ def save_raw(filename):
     domains = fetch()
     
     raw = [ "# Generated with blocklist-agregator" ]
-    raw.append( "# Updated: % " % date.today() )
+    raw.append( "# Updated: %s" % date.today() )
     raw.append( "" )
     
     raw.extend(domains)
