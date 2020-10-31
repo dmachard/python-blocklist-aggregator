@@ -18,10 +18,10 @@ class TestSaving(unittest.TestCase):
     def test2_save_hosts(self):
         """test save list of domains as hosts format"""
         fn = "hosts.txt"
-        blocklist_aggregator.save_hosts(filename=fn)
+        blocklist_aggregator.save_hosts(filename=fn, ip="0.0.0.0")
         
         with open(fn, "r") as f:
             data = f.read()
             
         domains = data.splitlines()  
-        self.assertIn("doubleclick.net", domains)
+        self.assertIn("0.0.0.0 doubleclick.net", domains)
