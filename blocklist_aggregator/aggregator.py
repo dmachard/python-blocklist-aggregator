@@ -65,6 +65,9 @@ def fetch(ext_cfg=None):
             else:
                 domains_bl.extend(inspect_source(s["pattern"], r.text))  
 
+    # add more domains to the blocklist ?
+    domains_bl.extend(cfg["blacklist"])
+    
     # remove duplicated domains
     domains_unified = list(set(d for d in domains_bl))
     w,p = percent_list(domains_unified,domains_bl)
