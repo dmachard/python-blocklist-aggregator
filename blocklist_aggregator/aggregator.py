@@ -111,4 +111,4 @@ def save_hosts(filename, ip="0.0.0.0"):
     hosts.extend(domains_)
     
     # save-it in a file
-    save(filename, hosts)
+    save(filename, "\n".join(hosts) )
