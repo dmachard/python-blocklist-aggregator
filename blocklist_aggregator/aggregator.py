@@ -90,7 +90,7 @@ def save_raw(filename):
     # feching bad domains
     domains = fetch()
     
-    raw = [ "# Generated with blocklist-agregator" ]
+    raw = [ "# Generated with blocklist-aggregator" ]
     raw.append( "# Updated: %s" % date.today() )
     raw.append( "" )
     
@@ -98,11 +98,17 @@ def save_raw(filename):
     
     save(filename, "\n".join(raw) )
     
-def save_hosts(filename):
+def save_hosts(filename, ip="0.0.0.0"):
     """save to file with hosts format"""
-    
     # feching bad domains
     domains = fetch()
     
+    hosts = [ "# Generated with blocklist-aggregator" ]
+    hosts.append( "# Updated: %s" % date.today() )
+    hosts.append( "" )
+    
+    domains_ = list(map(lambda p: "%s " % ip + p, domains))
+    hosts.extend(domains_)
+    
     # save-it in a file
-    save(filename, "")
+    save(filename, hosts)
