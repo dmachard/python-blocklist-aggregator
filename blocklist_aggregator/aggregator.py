@@ -82,9 +82,9 @@ def fetch(ext_cfg=None):
 
 def save(filename, data):
     """save to file"""
-    f = open(filename, 'w')
-    f.write(data)
-    
+    with open(filename, 'w') as f:
+        f.write(data)
+ 
 def save_raw(filename, ext_cfg=None):
     """save to file with raw format"""
     # feching bad domains
