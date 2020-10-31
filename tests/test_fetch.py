@@ -1,8 +1,5 @@
 
-import time
 import unittest
-import subprocess
-import logging
 
 import blocklist_aggregator
 

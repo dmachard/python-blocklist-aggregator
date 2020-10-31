@@ -66,7 +66,8 @@ def fetch(ext_cfg=None):
                 domains_bl.extend(inspect_source(s["pattern"], r.text))  
 
     # add more domains to the blocklist ?
-    domains_bl.extend(cfg["blacklist"])
+    if cfg["blacklist"] is not None:
+        domains_bl.extend(cfg["blacklist"])
     
     # remove duplicated domains
     domains_unified = list(set(d for d in domains_bl))
@@ -84,7 +85,7 @@ def save(filename, data):
     f = open(filename, 'w')
     f.write(data)
     
-def save_raw(filename, domains):
+def save_raw(filename):
     """save to file with raw format"""
     # feching bad domains
     domains = fetch()
@@ -97,7 +98,7 @@ def save_raw(filename, domains):
     
     save(filename, "\n".join(raw) )
     
-def save_hosts(filename, domains):
+def save_hosts(filename):
     """save to file with hosts format"""
     
     # feching bad domains

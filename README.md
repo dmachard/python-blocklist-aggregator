@@ -56,11 +56,15 @@ sources:
       - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
       - https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestdomains.piHole.txt
       - https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts
+      - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts_without_controversies.txt
     pattern: (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]
 
-# domains whilelist
+# list of domains to exclude from the blocklist
 whitelist:
   - localhost.localdomain
+  
+# list of domains to include in the blocklist
+blacklist: []
 ```
 
 The configuration can be overwritten at runtime.
