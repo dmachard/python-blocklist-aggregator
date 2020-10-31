@@ -6,6 +6,7 @@ import requests
 import logging
 import re
 import os
+from datetime import date
 
 def percent_list(part_list, whole_list):
     """return percent of the part"""
@@ -74,3 +75,30 @@ def fetch(ext_cfg=None):
     logging.debug("blocklist without domains from whitelist total=%s" % len(domains_unified))
     
     return domains_unified
+
+def save(filename, data):
+    """save to file"""
+    f = open(filename, 'w')
+    f.write(data)
+    
+def save_raw(filename, domains):
+    """save to file with raw format"""
+    # feching bad domains
+    domains = fetch()
+    
+    raw = [ "# Generated with blocklist-agregator" ]
+    raw.append( "# Updated: % " % date.today() )
+    raw.append( "" )
+    
+    raw.extend(domains)
+    
+    save(filename, "\n".join(raw) )
+    
+def save_hosts(filename, domains):
+    """save to file with hosts format"""
+    
+    # feching bad domains
+    domains = fetch()
+    
+    # save-it in a file
+    save(filename, "")
