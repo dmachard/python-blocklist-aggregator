@@ -20,3 +20,11 @@ class TestFetching(unittest.TestCase):
         domains = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
    
         self.assertIn("blocklist-helloworld.com", domains)
+        
+    def test3_whitelist(self):
+        """test whitelist feature"""
+        cfg_yaml = "whitelist: [ doubleclick.net ]"
+        
+        domains = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
+   
+        self.assertNotIn("doubleclick.net", domains)
