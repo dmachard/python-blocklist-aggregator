@@ -7,7 +7,7 @@
 
 This python module does the aggregation of several ads/tracking/malware lists, and merges them into a unified list with duplicates removed.
 
-See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for an implementation example.
+See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for an implementation.
 
 ## Table of contents
 * [Installation](#installation)
@@ -59,6 +59,7 @@ sources:
       - https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestdomains.piHole.txt
       - https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts
       - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts_without_controversies.txt
+      - https://raw.githubusercontent.com/notracking/hosts-blocklists/master/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt
     pattern: (?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]
 
 # list of domains to exclude from the blocklist
