@@ -32,6 +32,7 @@ See the default [configuration file](https://github.com/dmachard/blocklist-aggre
 The configuration contains:
 - the ads/tracking/malware URL lists with the pattern (regex) to use
 - the domains list to exclude (whitelist)
+- additionnal domains list to block (blacklist)
 
 ```yaml
 # verbose mode, true to active debug logs
