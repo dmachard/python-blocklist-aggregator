@@ -59,11 +59,15 @@ def fetch(ext_cfg=None):
     # feching all sources
     for s in cfg["sources"]:
         for u in s["urls"]:
-            r = requests.get(u, timeout=5.0)
-            if r.status_code != 200:
-                logging.error("http error: %s" % r.status_code)
+            try:
+                r = requests.get(u, timeout=5.0)
+            except requests.exceptions.ConnectionError:
+                logging.error("connection error on : %s" % u)
             else:
-                domains_bl.extend(inspect_source(s["pattern"], r.text))  
+                if r.status_code != 200:
+                    logging.error("http error: %s" % r.status_code)
+                else:
+                    domains_bl.extend(inspect_source(s["pattern"], r.text))  
             
     # add more domains to the blocklist ?
     if cfg["blacklist"] is not None:
