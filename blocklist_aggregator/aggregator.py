@@ -61,8 +61,8 @@ def fetch(ext_cfg=None):
         for u in s["urls"]:
             try:
                 r = requests.get(u, timeout=5.0)
-            except requests.exceptions.ConnectionError:
-                logging.error("connection error on : %s" % u)
+            except requests.exceptions.RequestException as e:
+                logging.error("requests exception: %s" % e)
             else:
                 if r.status_code != 200:
                     logging.error("http error: %s" % r.status_code)
