@@ -49,7 +49,7 @@ sources:
   - urls:
       - https://easylist.to/easylist/easylist.txt
       - https://raw.githubusercontent.com/paulgb/BarbBlock/master/BarbBlock.txt
-    pattern: "^(?:\|\|)((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])(?:\^)"
+    pattern: ^(?:\|\|)((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])(?:\^)
   - urls:
       - https://winhelp2002.mvps.org/hosts.txt
       - https://adaway.org/hosts.txt

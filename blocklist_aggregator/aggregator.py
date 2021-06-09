@@ -69,6 +69,8 @@ def fetch(ext_cfg=None):
                 if r.status_code != 200:
                     logging.error("http error: %s" % r.status_code)
                 else:
+                    print(u)
+                    print(s["pattern"])
                     domains_bl.extend(inspect_source(s["pattern"], r.text))  
             
     # add more domains to the blocklist ?
