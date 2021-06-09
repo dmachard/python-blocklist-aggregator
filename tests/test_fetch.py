@@ -1,9 +1,13 @@
 
 import unittest
+import warnings
 
 import blocklist_aggregator
 
 class TestFetching(unittest.TestCase):
+    def setUp(self):
+        warnings.filterwarnings('ignore', message='Unverified HTTPS request')
+
     def test1_fetch(self):
         """test fetch"""
         domains = blocklist_aggregator.fetch()

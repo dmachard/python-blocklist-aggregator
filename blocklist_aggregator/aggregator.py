@@ -60,7 +60,7 @@ def fetch(ext_cfg=None):
     for s in cfg["sources"]:
         for u in s["urls"]:
             try:
-                r = requests.get(u, timeout=5.0)
+                r = requests.get(u, timeout=float(cfg["timeout"]), verify=cfg["tlsverify"])
             except requests.exceptions.RequestException as e:
                 logging.error("requests exception: %s" % e)
             else:

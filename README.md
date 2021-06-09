@@ -38,6 +38,10 @@ The configuration contains:
 # verbose mode, true to active debug logs
 verbose: false
 
+# http client options
+tlsverify: true
+timeout: 5.0
+
 # blocklist sources files
 # list of url to download and the pattern 
 # to find domain in the content
