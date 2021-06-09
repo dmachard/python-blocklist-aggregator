@@ -11,6 +11,8 @@ from datetime import date
 def percent_list(part_list, whole_list):
     """return percent of the part"""
     w = len(whole_list)
+    if not w:
+        return (w,0)
     p = 100 * float(len(part_list))/float(w)
     return (w,round(100-p, 2))
     
