@@ -22,7 +22,7 @@ def inspect_source(pattern, string):
 
     # find all domains according to the pattern
     # and eliminate duplicated domains
-    domains_all = re.findall(pattern, string)
+    domains_all = re.findall(pattern, string, re.M)
     domains = list(set(d for d in domains_all))
     
     # calculate total domains and percent of duplication
@@ -69,8 +69,6 @@ def fetch(ext_cfg=None):
                 if r.status_code != 200:
                     logging.error("http error: %s" % r.status_code)
                 else:
-                    print(u)
-                    print(s["pattern"])
                     domains_bl.extend(inspect_source(s["pattern"], r.text))  
             
     # add more domains to the blocklist ?
