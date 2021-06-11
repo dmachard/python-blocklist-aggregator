@@ -59,7 +59,6 @@ def fetch(ext_cfg=None):
                         stream=sys.stdout, level=level)
     
     domains_bl = []
-    domains_wl = []
 
     # feching all sources
     for s in cfg["sources"]:
@@ -84,7 +83,10 @@ def fetch(ext_cfg=None):
     logging.debug("blocklist total=%s duplicated=%s%%" % (len(domains_unified),p))
     
     # remove domains from the whilelist
-    domains_unified = list(set(domains_unified) ^ set(cfg["whitelist"]))
+    set_domains = set(domains_unified)
+    set_whitelist = set(cfg["whitelist"])
+    set_domains.difference_update(set_whitelist)
+    domains_unified = list(set_domains)
     logging.debug("blocklist without domains from whitelist total=%s" % len(domains_unified))
     
     return domains_unified
