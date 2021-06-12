@@ -16,14 +16,12 @@ def percent_list(part_list, whole_list):
     p = 100 * float(len(part_list))/float(w)
     return (w,round(100-p, 2))
     
-def inspect_source(patterns, string):
+def inspect_source(pattern, string):
     """inspect string to find domains"""
     logging.debug("*** Searching valid domains...")
 
     # find all domains according to the pattern
-    for p in patterns:
-        matched_domains = re.findall(p, string, re.M)
-        string = "\n".join(matched_domains)
+    matched_domains = re.findall(pattern, string, re.M)
 
     # and eliminate duplicated domains
     domains = list(set(d for d in matched_domains))
@@ -71,7 +69,7 @@ def fetch(ext_cfg=None):
                 if r.status_code != 200:
                     logging.error("http error: %s" % r.status_code)
                 else:
-                    domains_bl.extend(inspect_source(s["patterns"], r.text))  
+                    domains_bl.extend(inspect_source(s["pattern"], r.text))  
             
     # add more domains to the blocklist ?
     if cfg["blacklist"] is not None:

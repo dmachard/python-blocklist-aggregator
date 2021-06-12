@@ -13,6 +13,7 @@ class TestFetching(unittest.TestCase):
         domains = blocklist_aggregator.fetch()
         
         self.assertIn("doubleclick.net", domains)
+        self.assertNotIn("github.com", domains)
         
     def test2_blacklist(self):
         """test blacklist feature"""
