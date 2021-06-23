@@ -1,4 +1,3 @@
-__version__ = "0.0.7"
 
 from blocklist_aggregator.aggregator import fetch
 from blocklist_aggregator.aggregator import save_raw

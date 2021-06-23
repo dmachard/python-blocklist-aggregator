@@ -2,13 +2,6 @@
 
 import setuptools
 
-with open("./blocklist_aggregator/__init__.py", "r") as fh:
-    for line in fh.read().splitlines():
-        if line.startswith('__version__'):
-            PKG_VERSION = line.split('"')[1]
-if PKG_VERSION.startswith("v"):
-    PKG_VERSION = PKG_VERSION[1:]
-    
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
     
@@ -16,7 +9,7 @@ KEYWORDS = ('blocklist aggregator domains dns blacklist whitelist')
 
 setuptools.setup(
     name="blocklist_aggregator",
-    version=PKG_VERSION,
+    version="{{ version }}",
     author="Denis MACHARD",
     author_email="d.machard@gmail.com",
     description="Domains blocklist aggregator",
