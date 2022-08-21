@@ -57,68 +57,12 @@ print(len(unified))
 152978
 ```
 
-## Fetching in verbose mode
+## For developpers
 
-Fetching ads/tracking/malware URL lists in debug mode
-```
-2020-10-29 06:47:17,220 Starting new HTTPS connection (1): easylist.to:443
-2020-10-29 06:47:17,473 https://easylist.to:443 "GET /easylist/easylist.txt HTTP/1.1" 200 472389
-2020-10-29 06:47:17,669 *** Searching valid domains...
-2020-10-29 06:47:17,710 *** domains=23672 duplicated=10.26%
-2020-10-29 06:47:17,710 Starting new HTTPS connection (1): raw.githubusercontent.com:443
-2020-10-29 06:47:18,013 https://raw.githubusercontent.com:443 "GET /paulgb/BarbBlock/master/BarbBlock.txt HTTP/1.1" 200 4701
-2020-10-29 06:47:18,020 *** Searching valid domains...
-2020-10-29 06:47:18,022 *** domains=550 duplicated=1.09%
-2020-10-29 06:47:18,027 Starting new HTTPS connection (1): winhelp2002.mvps.org:443
-2020-10-29 06:47:19,065 https://winhelp2002.mvps.org:443 "GET /hosts.txt HTTP/1.1" 200 87636
-2020-10-29 06:47:19,343 *** Searching valid domains...
-2020-10-29 06:47:19,413 *** domains=11730 duplicated=1.49%
-2020-10-29 06:47:19,413 Starting new HTTPS connection (1): adaway.org:443
-2020-10-29 06:47:19,654 https://adaway.org:443 "GET /hosts.txt HTTP/1.1" 200 48536
-2020-10-29 06:47:19,666 *** Searching valid domains...
-2020-10-29 06:47:19,714 *** domains=9002 duplicated=7.52%
-2020-10-29 06:47:19,721 Starting new HTTPS connection (1): raw.githubusercontent.com:443
-2020-10-29 06:47:20,193 https://raw.githubusercontent.com:443 "GET /StevenBlack/hosts/master/data/StevenBlack/hosts HTTP/1.1" 200 21683
-2020-10-29 06:47:20,201 *** Searching valid domains...
-2020-10-29 06:47:20,212 *** domains=2938 duplicated=0.0%
-2020-10-29 06:47:20,212 Starting new HTTPS connection (1): www.malwaredomainlist.com:443
-2020-10-29 06:47:20,944 https://www.malwaredomainlist.com:443 "GET /hostslist/hosts.txt HTTP/1.1" 200 35585
-2020-10-29 06:47:21,039 *** Searching valid domains...
-2020-10-29 06:47:21,057 *** domains=1106 duplicated=0.0%
-2020-10-29 06:47:21,057 Starting new HTTPS connection (1): urlhaus.abuse.ch:443
-2020-10-29 06:47:21,340 https://urlhaus.abuse.ch:443 "GET /downloads/hostfile/ HTTP/1.1" 200 19478
-2020-10-29 06:47:21,459 *** Searching valid domains...
-2020-10-29 06:47:21,479 *** domains=2280 duplicated=0.04%
-2020-10-29 06:47:21,485 Starting new HTTPS connection (1): pgl.yoyo.org:443
-2020-10-29 06:47:21,731 https://pgl.yoyo.org:443 "GET /adservers/serverlist.php?hostformat=hosts;showintro=0 HTTP/1.1" 200 24153
-2020-10-29 06:47:21,743 *** Searching valid domains...
-2020-10-29 06:47:21,792 *** domains=3568 duplicated=0.14%
-2020-10-29 06:47:21,799 Starting new HTTPS connection (1): someonewhocares.org:443
-2020-10-29 06:47:22,849 https://someonewhocares.org:443 "GET /hosts/hosts HTTP/1.1" 200 449957
-2020-10-29 06:47:24,029 *** Searching valid domains...
-2020-10-29 06:47:24,138 *** domains=14662 duplicated=0.85%
-2020-10-29 06:47:24,143 Starting new HTTPS connection (1): raw.githubusercontent.com:443
-2020-10-29 06:47:24,378 https://raw.githubusercontent.com:443 "GET /notracking/hosts-blocklists/master/hostnames.txt HTTP/1.1" 200 1468999
-2020-10-29 06:47:24,738 *** Searching valid domains...
-2020-10-29 06:47:25,124 *** domains=194622 duplicated=50.0%
-2020-10-29 06:47:25,128 Starting new HTTPS connection (1): s3.amazonaws.com:443
-2020-10-29 06:47:25,824 https://s3.amazonaws.com:443 "GET /lists.disconnect.me/simple_ad.txt HTTP/1.1" 200 43616
-2020-10-29 06:47:25,866 *** Searching valid domains...
-2020-10-29 06:47:25,873 *** domains=2702 duplicated=0.0%
-2020-10-29 06:47:25,873 Starting new HTTPS connection (1): s3.amazonaws.com:443
-2020-10-29 06:47:26,383 https://s3.amazonaws.com:443 "GET /lists.disconnect.me/simple_tracking.txt HTTP/1.1" 200 613
-2020-10-29 06:47:26,390 *** Searching valid domains...
-2020-10-29 06:47:26,390 *** domains=35 duplicated=0.0%
-2020-10-29 06:47:26,393 Starting new HTTPS connection (1): raw.githubusercontent.com:443
-2020-10-29 06:47:26,573 https://raw.githubusercontent.com:443 "GET /davidonzo/Threat-Intel/master/lists/latestdomains.piHole.txt HTTP/1.1" 200 21830
-2020-10-29 06:47:26,575 *** Searching valid domains...
-2020-10-29 06:47:26,613 *** domains=2193 duplicated=0.05%
-2020-10-29 06:47:26,624 Starting new HTTPS connection (1): raw.githubusercontent.com:443
-2020-10-29 06:47:26,839 https://raw.githubusercontent.com:443 "GET /mitchellkrogza/Badd-Boyz-Hosts/master/hosts HTTP/1.1" 200 7888
-2020-10-29 06:47:26,850 *** Searching valid domains...
-2020-10-29 06:47:26,857 *** domains=834 duplicated=0.48%
-2020-10-29 06:47:26,893 blocklist total=152978 duplicated=9.57%
-2020-10-29 06:47:26,941 blocklist without domains from whitelist total=152977
+Run test units
+
+```bash
+python3 -m unittest discover tests/
 ```
 
 # About

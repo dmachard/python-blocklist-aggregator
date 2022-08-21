@@ -121,3 +121,7 @@ def save_hosts(filename, ip="0.0.0.0", ext_cfg=None):
     
     # save-it in a file
     save(filename, "\n".join(hosts) )
+
+def save_cdb(filename, default_value=""):
+    """save to CDB database"""
+    pass
