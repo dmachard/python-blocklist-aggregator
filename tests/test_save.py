@@ -1,5 +1,6 @@
 
 import unittest
+import cdblib
 
 import blocklist_aggregator
 
@@ -25,3 +26,17 @@ class TestSaving(unittest.TestCase):
             
         domains = data.splitlines()  
         self.assertIn("0.0.0.0 doubleclick.net", domains)
+
+    def test3_save_cdb(self):
+        """test save cdb"""
+        fn = "./outputs/blocklist.cdb"
+        blocklist_aggregator.save_cdb(filename=fn)
+        
+        with open(fn, 'rb') as f:
+            data = f.read()
+        reader = cdblib.Reader(data)
+
+        domains = []
+        for key, _ in reader.iteritems():
+            domains.append(key)
+        self.assertIn(b"doubleclick.net", domains)

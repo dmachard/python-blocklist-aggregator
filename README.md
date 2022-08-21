@@ -12,8 +12,8 @@ See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** r
 ## Table of contents
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Basic example](#basic-example)
-* [Fetching in verbose mode](#fetching-in-verbose-mode)
+* [Basic fetching example](#basic-fetching-example)
+* [Fetch and save-it to files](#fetch-and-save-it-to-files)
 * [About](#about)
 
 ## Installation
@@ -27,7 +27,7 @@ pip install blocklist_aggregator
 
 ## Configuration
 
-See the default [configuration file](https://github.com/dmachard/blocklist-aggregator/blob/main/blocklist_aggregator/blocklist.conf)
+See the default [configuration file](../blocklist_aggregator/blocklist.conf)
 
 The configuration contains:
 - the ads/tracking/malware URL lists with the pattern (regex) to use
@@ -41,7 +41,7 @@ cfg_yaml = "verbose: true"
 unified = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
 ```
 
-## Basic example
+## Basic fetch example
 
 This basic example enable to get a unified list of domains.
 You can save-it in a file or do what you want.
@@ -57,6 +57,29 @@ print(len(unified))
 152978
 ```
 
+## Fetch and save-it to files
+
+This module can be used to export the list in several format:
+- text
+- hosts
+- CDB (key/value database)
+
+```python
+import blocklist_aggregator
+
+# fetch domains
+unified = blocklist_aggregator.fetch()
+
+# save to a text file
+blocklist_aggregator.save_raw(filename="/tmp/unified_list.txt")
+
+# save to hosts file
+blocklist_aggregator.save_hosts(filename="/tmp/unified_hosts.txt", ip="0.0.0.0")
+
+# save to CDB
+blocklist_aggregator.save_cdb(filename="/tmp/unified_domains.cdb")
+```
+
 ## For developpers
 
 Run test units
@@ -64,11 +87,3 @@ Run test units
 ```bash
 python3 -m unittest discover tests/
 ```
-
-# About
-
-| | |
-| ------------- | ------------- |
-| Author | Denis Machard <d.machard@gmail.com> |
-| PyPI | https://pypi.org/project/blocklist_aggregator/ |
-| | |

@@ -7,6 +7,7 @@ import logging
 import re
 import os
 from datetime import date
+import cdblib
 
 def percent_list(part_list, whole_list):
     """return percent of the part"""
@@ -122,6 +123,12 @@ def save_hosts(filename, ip="0.0.0.0", ext_cfg=None):
     # save-it in a file
     save(filename, "\n".join(hosts) )
 
-def save_cdb(filename, default_value=""):
+def save_cdb(filename, default_value="", ext_cfg=None):
     """save to CDB database"""
-    pass
+    # feching domains
+    domains = fetch(ext_cfg=ext_cfg)
+
+    with open(filename, 'wb') as f:
+        with cdblib.Writer(f) as writer:
+            for d in domains:
+                writer.put(d.encode(), default_value.encode())
