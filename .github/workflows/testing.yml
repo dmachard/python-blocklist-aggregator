@@ -24,6 +24,6 @@ jobs:
 
     - name: Run Python tests 
       run: |
-        sudo python3 -m pip install pyyaml
+        sudo python3 -m pip install -r requirements.txt
         sudo python3 -m unittest tests.test_fetch -v
         sudo python3 -m unittest tests.test_save -v
