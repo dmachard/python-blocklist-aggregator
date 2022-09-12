@@ -70,6 +70,12 @@ cfg_yaml = "verbose: true"
 unified = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
 ```
 
+or
+
+```python
+unified = blocklist_aggregator.fetch(cfg_filename="/home/custom-blocklist.conf")
+```
+
 ## Fetch and save-it to files
 
 This module can be used to export the list in several format:

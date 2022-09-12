@@ -33,7 +33,7 @@ def inspect_source(pattern, string):
     logging.debug("*** domains=%s duplicated=%s%%" % (w,p) )
     return domains
     
-def fetch(ext_cfg=None):
+def fetch(ext_cfg=None, cfg_filename=None):
     """fetch sources"""
     # read default config
     try:
@@ -50,7 +50,14 @@ def fetch(ext_cfg=None):
         except Exception as e:
             logging.error("invalid external config: %s" % e)
             sys.exit(1)
-            
+    if cfg_filename is not None:
+        try:
+            with open(cfg_filename, 'r') as stream:
+                cfg.update( yaml.safe_load(stream) )
+        except Exception as e:
+            logging.error("invalid external cfg file: %s" % e)
+            sys.exit(1)
+
     # init logger
     level = logging.INFO
     if cfg["verbose"]: level = logging.DEBUG
