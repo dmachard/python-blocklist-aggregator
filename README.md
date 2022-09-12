@@ -22,6 +22,8 @@ Default sources:
 - [x] PolishFiltersTeam/KADhosts
 - [x] lists.disconnect.me
 - [x] notracking/hosts-blocklists
+- [x] easylist.to
+- [x] paulgb/BarbBlock
 
 ## Table of contents
 * [Installation](#installation)
@@ -67,10 +69,10 @@ The configuration can be overwritten at runtime.
 
 ```python
 cfg_yaml = "verbose: true"
-unified = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
+unified = blocklist_aggregator.fetch(cfg_update=cfg_yaml)
 ```
 
-or
+or loaded from external config file
 
 ```python
 unified = blocklist_aggregator.fetch(cfg_filename="/home/custom-blocklist.conf")
@@ -104,5 +106,5 @@ blocklist_aggregator.save_cdb(filename="/tmp/unified_domains.cdb")
 Run test units
 
 ```bash
-python3 -m unittest discover tests/
+python3 -m unittest discover tests/ -v
 ```

@@ -19,7 +19,7 @@ class TestFetching(unittest.TestCase):
         """test blacklist feature"""
         cfg_yaml = "blacklist: [ blocklist-helloworld.com ]"
         
-        domains = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
+        domains = blocklist_aggregator.fetch(cfg_update=cfg_yaml)
    
         self.assertIn("blocklist-helloworld.com", domains)
         
@@ -27,6 +27,13 @@ class TestFetching(unittest.TestCase):
         """test whitelist feature"""
         cfg_yaml = "whitelist: [ doubleclick.net ]"
         
-        domains = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
+        domains = blocklist_aggregator.fetch(cfg_update=cfg_yaml)
    
+        self.assertNotIn("doubleclick.net", domains)
+
+    def test4_load_external_config(self):
+        """test and load external config"""
+        domains = blocklist_aggregator.fetch(cfg_filename="./testsdata/blocklist.conf")
+   
+        self.assertIn("helloworld-blacklist", domains)
         self.assertNotIn("doubleclick.net", domains)
