@@ -33,24 +33,32 @@ def inspect_source(pattern, string):
     logging.debug("*** domains=%s duplicated=%s%%" % (w,p) )
     return domains
     
-def fetch(ext_cfg=None):
+def fetch(cfg_update=None, cfg_filename=None):
     """fetch sources"""
-    # read default config
+    # read default config or from file
     try:
         conf = pkgutil.get_data(__package__, 'blocklist.conf')
         cfg =  yaml.safe_load(conf) 
     except Exception as e:
-        logging.error("invalid config: %s" % e)
+        logging.error("invalid default config: %s" % e)
         sys.exit(1)
 
-    # overwrite config with external config ?    
-    if ext_cfg is not None:
+    if cfg_filename is not None:
         try:
-            cfg.update( yaml.safe_load(ext_cfg) )
+            with open(cfg_filename, 'r') as stream:
+                cfg =  yaml.safe_load(stream)
         except Exception as e:
-            logging.error("invalid external config: %s" % e)
+            logging.error("invalid external cfg file: %s" % e)
             sys.exit(1)
-            
+
+    # overwrite config with external config ?    
+    if cfg_update is not None:
+        try:
+            cfg.update( yaml.safe_load(cfg_update) )
+        except Exception as e:
+            logging.error("invalid update config: %s" % e)
+            sys.exit(1)
+
     # init logger
     level = logging.INFO
     if cfg["verbose"]: level = logging.DEBUG
@@ -95,10 +103,10 @@ def save(filename, data):
     with open(filename, 'w') as f:
         f.write(data)
  
-def save_raw(filename, ext_cfg=None):
+def save_raw(filename, cfg_update=None):
     """save to file with raw format"""
     # feching bad domains
-    domains = fetch(ext_cfg=ext_cfg)
+    domains = fetch(cfg_update=cfg_update)
     
     raw = [ "# Generated with blocklist-aggregator" ]
     raw.append( "# Updated: %s" % date.today() )
@@ -108,10 +116,10 @@ def save_raw(filename, ext_cfg=None):
     
     save(filename, "\n".join(raw) )
     
-def save_hosts(filename, ip="0.0.0.0", ext_cfg=None):
+def save_hosts(filename, ip="0.0.0.0", cfg_update=None):
     """save to file with hosts format"""
     # feching bad domains
-    domains = fetch(ext_cfg=ext_cfg)
+    domains = fetch(cfg_update=cfg_update)
     
     hosts = [ "# Generated with blocklist-aggregator" ]
     hosts.append( "# Updated: %s" % date.today() )
@@ -123,10 +131,10 @@ def save_hosts(filename, ip="0.0.0.0", ext_cfg=None):
     # save-it in a file
     save(filename, "\n".join(hosts) )
 
-def save_cdb(filename, default_value="", ext_cfg=None):
+def save_cdb(filename, default_value="", cfg_update=None):
     """save to CDB database"""
     # feching domains
-    domains = fetch(ext_cfg=ext_cfg)
+    domains = fetch(cfg_update=cfg_update)
 
     with open(filename, 'wb') as f:
         with cdblib.Writer(f) as writer:

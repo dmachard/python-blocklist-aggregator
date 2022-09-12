@@ -9,12 +9,27 @@ This python module does the aggregation of several ads/tracking/malware lists, a
 
 See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for an implementation.
 
+Default sources:
+- [x] winhelp2002.mvps.org
+- [x] adaway.org
+- [x] StevenBlack
+- [x] urlhaus.abuse.ch
+- [x] pgl.yoyo.org
+- [x] someonewhocares.org
+- [x] notracking
+- [x] davidonzo/Threat-Intel
+- [x] mitchellkrogza/Badd-Boyz-Hosts
+- [x] PolishFiltersTeam/KADhosts
+- [x] lists.disconnect.me
+- [x] notracking/hosts-blocklists
+- [x] easylist.to
+- [x] paulgb/BarbBlock
+
 ## Table of contents
 * [Installation](#installation)
-* [Configuration](#configuration)
-* [Basic fetching example](#basic-fetching-example)
+* [Get Started](#get-started)
+* [Custom Configuration](#custom-configuration)
 * [Fetch and save-it to files](#fetch-and-save-it-to-files)
-* [About](#about)
 
 ## Installation
 
@@ -25,23 +40,7 @@ install this module with the pip command.
 pip install blocklist_aggregator
 ```
 
-## Configuration
-
-See the default [configuration file](../blocklist_aggregator/blocklist.conf)
-
-The configuration contains:
-- the ads/tracking/malware URL lists with the pattern (regex) to use
-- the domains list to exclude (whitelist)
-- additionnal domains list to block (blacklist)
-
-The configuration can be overwritten at runtime.
-
-```python
-cfg_yaml = "verbose: true"
-unified = blocklist_aggregator.fetch(ext_cfg=cfg_yaml)
-```
-
-## Basic fetch example
+## Get started
 
 This basic example enable to get a unified list of domains.
 You can save-it in a file or do what you want.
@@ -55,6 +54,28 @@ print(unified)
 
 print(len(unified))
 152978
+```
+
+## Custom configuration
+
+See the default [configuration file](../main/blocklist_aggregator/blocklist.conf)
+
+The configuration contains:
+- the ads/tracking/malware URL lists with the pattern (regex) to use
+- the domains list to exclude (whitelist)
+- additionnal domains list to block (blacklist)
+
+The configuration can be overwritten at runtime.
+
+```python
+cfg_yaml = "verbose: true"
+unified = blocklist_aggregator.fetch(cfg_update=cfg_yaml)
+```
+
+or loaded from external config file
+
+```python
+unified = blocklist_aggregator.fetch(cfg_filename="/home/custom-blocklist.conf")
 ```
 
 ## Fetch and save-it to files
@@ -85,5 +106,5 @@ blocklist_aggregator.save_cdb(filename="/tmp/unified_domains.cdb")
 Run test units
 
 ```bash
-python3 -m unittest discover tests/
+python3 -m unittest discover tests/ -v
 ```
