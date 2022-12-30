@@ -21,7 +21,7 @@ jobs:
         pip install twine jinja2
 
     - id: pkg_version
-      run: echo "##[set-output name=data;]$(echo ${{ github.event.release.tag_name }} | cut -c2-)"
+      run: echo "data=$(echo ${{ github.event.release.tag_name }} | cut -c2-)" >> $GITHUB_OUTPUT
 
     - name: Build Python package
       run: |
