@@ -7,8 +7,12 @@ on:
 jobs:
   release:
     runs-on: ubuntu-22.04
+    environment: release
+    permissions:
+      id-token: write
+      
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11' 
@@ -26,10 +30,5 @@ jobs:
         python -c 'import jinja2;jinja2.Template(open("setup.j2").read()).stream(version="${{ steps.pkg_version.outputs.data }}").dump("setup.py")'
         python setup.py sdist bdist_wheel
 
-    - name: Twine check
-      run: |
-        twine check dist/*
-
-    - name: Upload to PyPI
-      run: |
-        twine upload dist/* -u ${{ secrets.PYPI_LOGIN }} -p ${{ secrets.PYPI_PASSWORD }}
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
