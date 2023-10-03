@@ -1,9 +1,6 @@
-# Blocklist aggregator
-
 ![Testing](https://github.com/dmachard/blocklist-aggregator/workflows/Testing/badge.svg) ![Build](https://github.com/dmachard/blocklist-aggregator/workflows/Build/badge.svg) ![Publish](https://github.com/dmachard/blocklist-aggregator/workflows/Publish/badge.svg) 
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/blocklist_aggregator)
+# Blocklist aggregator
 
 This python module does the aggregation of several ads/tracking/malware lists, and merges them into a unified list with duplicates removed.
 
@@ -32,6 +29,8 @@ Default sources:
 * [Fetch and save-it to files](#fetch-and-save-it-to-files)
 
 ## Installation
+
+![python 3.12.x](https://img.shields.io/badge/python%203.12.x-tested-blue) ![python 3.11.x](https://img.shields.io/badge/python%203.11.x-tested-blue) ![python 3.10.x](https://img.shields.io/badge/python%203.10.x-tested-blue) ![python 3.9.x](https://img.shields.io/badge/python%203.9.x-tested-blue) ![python 3.8.x](https://img.shields.io/badge/python%203.8.x-tested-blue)
 
 If you want to generate your own unified blocklist, 
 install this module with the pip command.
