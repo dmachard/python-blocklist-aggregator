@@ -77,8 +77,13 @@ def fetch(cfg_update=None, cfg_filename=None):
             else:
                 if r.status_code != 200:
                     logging.error("http error: %s" % r.status_code)
+                    return []
                 else:
-                    domains_bl.extend(inspect_source(s["pattern"], r.text))  
+                    domains = inspect_source(s["pattern"], r.text)
+                    if len(domains) == 0:
+                        logging.error("no domains extracted for: %s" % u)
+                        return []
+                    domains_bl.extend(domains)  
             
     # add more domains to the blocklist ?
     if cfg["blacklist"] is not None:
@@ -89,12 +94,12 @@ def fetch(cfg_update=None, cfg_filename=None):
     w,p = percent_list(domains_unified,domains_bl)
     logging.debug("blocklist origin=%s total=%s duplicated=%s%%" % (len(domains_bl), len(domains_unified),p))
     
-    # remove domains from the whilelist
+    # apply the whilelist
     set_domains = set(domains_unified)
     set_whitelist = set(cfg["whitelist"])
     set_domains.difference_update(set_whitelist)
     domains_unified = list(set_domains)
-    logging.debug("blocklist without domains from whitelist total=%s" % len(domains_unified))
+    logging.debug("final blocklist with whitelist applied total=%s" % len(domains_unified))
     
     return domains_unified
 
@@ -115,7 +120,7 @@ def save_raw(filename, cfg_update=None, cfg_filename=None):
 
     # to avoid empty file
     if len(domains) == 0:
-        logging.error("the domain list is empty")
+        logging.error("nothing to write, the domain list is empty!")
         return
     
     raw = [ "# Generated with blocklist-aggregator" ]
@@ -135,7 +140,7 @@ def save_hosts(filename, ip="0.0.0.0", cfg_update=None, cfg_filename=None):
     
     # to avoid empty file
     if len(domains) == 0:
-        logging.error("the domain list is empty")
+        logging.error("nothing to write, the domain list is empty!")
         return
     
     hosts = [ "# Generated with blocklist-aggregator" ]
@@ -157,7 +162,7 @@ def save_cdb(filename, default_value="", cfg_update=None, cfg_filename=None):
 
     # to avoid empty file
     if len(domains) == 0:
-        logging.error("the domain list is empty")
+        logging.error("nothing to write, the domain list is empty!")
         return
     
     try:
