@@ -103,10 +103,10 @@ def save(filename, data):
     with open(filename, 'w') as f:
         f.write(data)
  
-def save_raw(filename, cfg_update=None):
+def save_raw(filename, cfg_update=None, cfg_filename=None):
     """save to file with raw format"""
     # feching bad domains
-    domains = fetch(cfg_update=cfg_update)
+    domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
     
     raw = [ "# Generated with blocklist-aggregator" ]
     raw.append( "# Updated: %s" % date.today() )
@@ -116,10 +116,10 @@ def save_raw(filename, cfg_update=None):
     
     save(filename, "\n".join(raw) )
     
-def save_hosts(filename, ip="0.0.0.0", cfg_update=None):
+def save_hosts(filename, ip="0.0.0.0", cfg_update=None, cfg_filename=None):
     """save to file with hosts format"""
     # feching bad domains
-    domains = fetch(cfg_update=cfg_update)
+    domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
     
     hosts = [ "# Generated with blocklist-aggregator" ]
     hosts.append( "# Updated: %s" % date.today() )
@@ -131,10 +131,10 @@ def save_hosts(filename, ip="0.0.0.0", cfg_update=None):
     # save-it in a file
     save(filename, "\n".join(hosts) )
 
-def save_cdb(filename, default_value="", cfg_update=None):
+def save_cdb(filename, default_value="", cfg_update=None, cfg_filename=None):
     """save to CDB database"""
     # feching domains
-    domains = fetch(cfg_update=cfg_update)
+    domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
 
     with open(filename, 'wb') as f:
         with cdblib.Writer(f) as writer:
