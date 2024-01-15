@@ -98,15 +98,25 @@ def fetch(cfg_update=None, cfg_filename=None):
     
     return domains_unified
 
-def save(filename, data):
+def save_to_file(filename, data):
     """save to file"""
-    with open(filename, 'w') as f:
-        f.write(data)
- 
+    try:
+        with open(filename, 'w') as f:
+            f.write(data)
+    except Exception as e:
+        logging.error("unable to save to file: %s" % e)
+        return False
+    return True
+
 def save_raw(filename, cfg_update=None, cfg_filename=None):
     """save to file with raw format"""
     # feching bad domains
     domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
+
+    # to avoid empty file
+    if len(domains) == 0:
+        logging.error("the domain list is empty")
+        return
     
     raw = [ "# Generated with blocklist-aggregator" ]
     raw.append( "# Updated: %s" % date.today() )
@@ -114,12 +124,19 @@ def save_raw(filename, cfg_update=None, cfg_filename=None):
     
     raw.extend(domains)
     
-    save(filename, "\n".join(raw) )
+    success = save_to_file(filename, "\n".join(raw) )
+    if success: 
+        logging.debug("raw file saved")
     
 def save_hosts(filename, ip="0.0.0.0", cfg_update=None, cfg_filename=None):
     """save to file with hosts format"""
     # feching bad domains
     domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
+    
+    # to avoid empty file
+    if len(domains) == 0:
+        logging.error("the domain list is empty")
+        return
     
     hosts = [ "# Generated with blocklist-aggregator" ]
     hosts.append( "# Updated: %s" % date.today() )
@@ -129,14 +146,26 @@ def save_hosts(filename, ip="0.0.0.0", cfg_update=None, cfg_filename=None):
     hosts.extend(domains_)
     
     # save-it in a file
-    save(filename, "\n".join(hosts) )
+    success = save_to_file(filename, "\n".join(hosts) )
+    if success:
+        logging.debug("hosts file saved")
 
 def save_cdb(filename, default_value="", cfg_update=None, cfg_filename=None):
     """save to CDB database"""
     # feching domains
     domains = fetch(cfg_update=cfg_update, cfg_filename=cfg_filename)
 
-    with open(filename, 'wb') as f:
-        with cdblib.Writer(f) as writer:
-            for d in domains:
-                writer.put(d.encode(), default_value.encode())
+    # to avoid empty file
+    if len(domains) == 0:
+        logging.error("the domain list is empty")
+        return
+    
+    try:
+        with open(filename, 'wb') as f:
+            with cdblib.Writer(f) as writer:
+                for d in domains:
+                    writer.put(d.encode(), default_value.encode())
+    except Exception as e:
+        logging.error("error to save in cdb file: %s" % e)
+    else:
+        logging.debug("cdb file saved with success")
