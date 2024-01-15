@@ -6,23 +6,10 @@ This python module does the aggregation of several ads/tracking/malware lists, a
 
 See the **[blocklist-domains](https://github.com/dmachard/blocklist-domains)** repository for an implementation.
 
-Default sources:
-- [x] winhelp2002.mvps.org
-- [x] adaway.org
-- [x] StevenBlack
-- [x] urlhaus.abuse.ch
-- [x] pgl.yoyo.org
-- [x] someonewhocares.org
-- [x] notracking
-- [x] davidonzo/Threat-Intel
-- [x] mitchellkrogza/Badd-Boyz-Hosts
-- [x] PolishFiltersTeam/KADhosts
-- [x] lists.disconnect.me
-- [x] notracking/hosts-blocklists
-- [x] easylist.to
-- [x] paulgb/BarbBlock
+Default sources are defined on the [configuration file](../main/blocklist_aggregator/blocklist.conf)
 
 ## Table of contents
+
 * [Installation](#installation)
 * [Get Started](#get-started)
 * [Custom Configuration](#custom-configuration)
@@ -60,9 +47,10 @@ print(len(unified))
 See the default [configuration file](../main/blocklist_aggregator/blocklist.conf)
 
 The configuration contains:
-- the ads/tracking/malware URL lists with the pattern (regex) to use
-- the domains list to exclude (whitelist)
-- additionnal domains list to block (blacklist)
+
+* the ads/tracking/malware URL lists with the pattern (regex) to use
+* the domains list to exclude (whitelist)
+* additionnal domains list to block (blacklist)
 
 The configuration can be overwritten at runtime.
 
@@ -80,9 +68,10 @@ unified = blocklist_aggregator.fetch(cfg_filename="/home/custom-blocklist.conf")
 ## Fetch and save-it to files
 
 This module can be used to export the list in several format:
-- text
-- hosts
-- CDB (key/value database)
+
+* text
+* hosts
+* CDB (key/value database)
 
 ```python
 import blocklist_aggregator

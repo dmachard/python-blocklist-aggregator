@@ -87,7 +87,7 @@ def fetch(cfg_update=None, cfg_filename=None):
     # remove duplicated domains
     domains_unified = list(set(d for d in domains_bl))
     w,p = percent_list(domains_unified,domains_bl)
-    logging.debug("blocklist total=%s duplicated=%s%%" % (len(domains_unified),p))
+    logging.debug("blocklist origin=%s total=%s duplicated=%s%%" % (len(domains_bl), len(domains_unified),p))
     
     # remove domains from the whilelist
     set_domains = set(domains_unified)
