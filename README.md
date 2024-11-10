@@ -18,7 +18,7 @@ Default sources are defined on the [configuration file](../main/blocklist_aggreg
 
 ## Installation
 
-![python 3.12.x](https://img.shields.io/badge/python%203.12.x-tested-blue) ![python 3.11.x](https://img.shields.io/badge/python%203.11.x-tested-blue) ![python 3.10.x](https://img.shields.io/badge/python%203.10.x-tested-blue) ![python 3.9.x](https://img.shields.io/badge/python%203.9.x-tested-blue) ![python 3.8.x](https://img.shields.io/badge/python%203.8.x-tested-blue)
+![python 3.13.x](https://img.shields.io/badge/python%203.13.x-tested-blue) ![python 3.12.x](https://img.shields.io/badge/python%203.12.x-tested-blue) ![python 3.11.x](https://img.shields.io/badge/python%203.11.x-tested-blue) ![python 3.10.x](https://img.shields.io/badge/python%203.10.x-tested-blue) ![python 3.9.x](https://img.shields.io/badge/python%203.9.x-tested-blue) ![python 3.8.x](https://img.shields.io/badge/python%203.8.x-tested-blue)
 
 If you want to generate your own unified blocklist, 
 install this module with the pip command.
