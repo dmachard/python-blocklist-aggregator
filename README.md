@@ -92,6 +92,15 @@ blocklist_aggregator.save_cdb(filename="/tmp/unified_domains.cdb")
 
 ## For developpers
 
+INstall prerequisites
+
+```bash
+sudo apt install python3-venv python3.13-dev
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
 Run test units
 
 ```bash
