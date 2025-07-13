@@ -5,7 +5,7 @@ import pkgutil
 import requests
 import logging
 import re
-import os
+import httpx
 from datetime import date
 import cdblib
 
@@ -32,7 +32,7 @@ def inspect_source(pattern, string):
 
     logging.debug("*** domains=%s duplicated=%s%%" % (w,p) )
     return domains
-    
+
 def fetch(cfg_update=None, cfg_filename=None):
     """fetch sources"""
     # read default config or from file
@@ -65,25 +65,53 @@ def fetch(cfg_update=None, cfg_filename=None):
     logging.basicConfig(format='%(asctime)s %(message)s', 
                         stream=sys.stdout, level=level)
     
+    # prepare headers with user-agent
+    headers = {}
+    if "user_agent" in cfg and cfg["user_agent"]:
+        headers["User-Agent"] = cfg["user_agent"]
+        logging.debug("Using custom user-agent: %s" % cfg["user_agent"])
+    else:
+        # default user-agent if not specified
+        headers["User-Agent"] = "blocklist-aggregator/1.0"
+        logging.debug("Using default user-agent: %s" % headers["User-Agent"])
+    
+    # check if HTTP/2 is enabled in config
+    use_http2 = cfg.get("http2", False)
+    logging.debug("HTTP/2 enabled: %s" % use_http2)
+    
     domains_bl = []
 
-    # feching all sources
-    for s in cfg["sources"]:
-        for u in s["urls"]:
-            try:
-                r = requests.get(u, timeout=float(cfg["timeout"]), verify=cfg["tlsverify"])
-            except requests.exceptions.RequestException as e:
-                logging.error("requests exception: %s" % e)
-            else:
-                if r.status_code != 200:
-                    logging.error("http error: %s" % r.status_code)
-                    #return []
+    # create httpx client with HTTP/2 support
+    client_kwargs = {
+        "timeout": float(cfg["timeout"]),
+        "verify": cfg["tlsverify"],
+        "headers": headers,
+        "http2": use_http2
+    }
+    
+    with httpx.Client(**client_kwargs) as client:
+        # feching all sources
+        for s in cfg["sources"]:
+            for u in s["urls"]:
+                try:
+                    r = client.get(u)
+                    logging.debug("HTTP version used for %s: %s" % (u, r.http_version))
+                except httpx.RequestError as e:
+                    logging.error("httpx request exception: %s" % e)
+                except httpx.HTTPStatusError as e:
+                    logging.error("httpx http status error: %s" % e)
+                except Exception as e:
+                    logging.error("httpx general exception: %s" % e)
                 else:
-                    domains = inspect_source(s["pattern"], r.text)
-                    if len(domains) == 0:
-                        logging.error("no domains extracted for: %s" % u)
-                    #    return []
-                    domains_bl.extend(domains)  
+                    if r.status_code != 200:
+                        logging.error("http error: %s" % r.status_code)
+                        #return []
+                    else:
+                        domains = inspect_source(s["pattern"], r.text)
+                        if len(domains) == 0:
+                            logging.error("no domains extracted for: %s" % u)
+                        #    return []
+                        domains_bl.extend(domains)  
             
     # add more domains to the blocklist ?
     if cfg["blacklist"] is not None:
