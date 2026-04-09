@@ -6,6 +6,7 @@ import requests
 import logging
 import re
 import httpx
+import json
 from datetime import date
 import cdblib
 
@@ -92,7 +93,37 @@ def fetch(cfg_update=None, cfg_filename=None):
     with httpx.Client(**client_kwargs) as client:
         # feching all sources
         for s in cfg["sources"]:
-            for u in s["urls"]:
+            # check if this is a meta source that requires extracting the actual URL
+            urls_to_fetch = []
+            if "meta" in s:
+                # This is a meta source - extract the actual file URL from meta.json
+                meta_url = s["urls"][0]
+                meta_key = s["meta"].get("key", "blocklist.name")
+                base_url = s["meta"].get("base_url", "")
+                
+                try:
+                    r = client.get(meta_url)
+                    if r.status_code == 200:
+                        meta_data = json.loads(r.text)
+                        # Navigate through the key path (e.g., "blocklist.name")
+                        keys = meta_key.split(".")
+                        value = meta_data
+                        for key in keys:
+                            value = value[key]
+                        
+                        # Construct the actual file URL
+                        actual_url = base_url + value
+                        urls_to_fetch.append(actual_url)
+                        logging.debug("Extracted filename from meta.json: %s" % value)
+                    else:
+                        logging.error("http error fetching meta.json: %s" % r.status_code)
+                except Exception as e:
+                    logging.error("error processing meta source: %s" % e)
+            else:
+                # Regular source - use URLs as-is
+                urls_to_fetch = s["urls"]
+            
+            for u in urls_to_fetch:
                 try:
                     r = client.get(u)
                     logging.debug("HTTP version used for %s: %s" % (u, r.http_version))
