@@ -1,0 +1,12 @@
+.git
+.github
+__pycache__
+*.py[cod]
+*$py.class
+dist/
+build/
+*.egg-info/
+.venv
+venv/
+outputs/
+.pytest_cache/
